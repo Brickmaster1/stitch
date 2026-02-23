@@ -35,11 +35,10 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import net.fabricmc.stitch.Command;
 import net.fabricmc.stitch.util.Pair;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Merges a tiny file with 2 columns (namespaces) of mappings, with another tiny file that has
@@ -223,7 +222,7 @@ public class CommandMergeTinyV2 extends Command {
 	 * , say the mapping of net/minecraft/class_123 is path/to/someclass and then returns a class of the form
 	 * path/to/someclass$class124
 	 */
-	@Nonnull
+	@NotNull
 	private String matchEnclosingClass(String sharedName, Map<String, TinyClass> inputBClassBySharedNamespace) {
 		String[] path = sharedName.split(escape("$"));
 		int parts = path.length;

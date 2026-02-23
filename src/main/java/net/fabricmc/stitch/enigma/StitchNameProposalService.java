@@ -26,6 +26,7 @@ import cuchaz.enigma.analysis.index.JarIndex;
 import cuchaz.enigma.api.EnigmaPluginContext;
 import cuchaz.enigma.api.service.JarIndexerService;
 import cuchaz.enigma.api.service.NameProposalService;
+import cuchaz.enigma.api.view.index.JarIndexView;
 import cuchaz.enigma.classprovider.ClassProvider;
 import cuchaz.enigma.translation.representation.entry.FieldEntry;
 import org.objectweb.asm.tree.MethodNode;
@@ -39,10 +40,9 @@ public class StitchNameProposalService {
 	private Map<EntryTriple, String> fieldNames;
 
 	private StitchNameProposalService(EnigmaPluginContext ctx) {
-		ctx.registerService("stitch:jar_indexer", JarIndexerService.TYPE, ctx1 -> new JarIndexerService() {
+		ctx.registerService("stitch:jar_indexer", JarIndexerService.TYPE, () -> new JarIndexerService() {
 			@Override
-			public void acceptJar(Set<String> classNames, ClassProvider classProvider, JarIndex jarIndex) {
-
+			public void acceptJar(Set<String> classNames, ClassProvider classProvider, JarIndexView jarIndex) {
 				Map<String, Set<String>> enumFields = new HashMap<>();
 				Map<String, List<MethodNode>> methods = new HashMap<>();
 
@@ -58,7 +58,7 @@ public class StitchNameProposalService {
 			}
 		});
 
-		ctx.registerService("stitch:name_proposal", NameProposalService.TYPE, ctx12 -> (obfEntry, remapper) -> {
+		ctx.registerService("stitch:name_proposal", NameProposalService.TYPE, () -> (obfEntry, remapper) -> {
 			if (obfEntry instanceof FieldEntry) {
 				FieldEntry fieldEntry = (FieldEntry) obfEntry;
 				EntryTriple key = new EntryTriple(fieldEntry.getContainingClass().getFullName(), fieldEntry.getName(), fieldEntry.getDesc().toString());

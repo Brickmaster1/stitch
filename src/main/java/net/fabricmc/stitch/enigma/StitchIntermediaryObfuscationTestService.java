@@ -16,7 +16,7 @@
 
 package net.fabricmc.stitch.enigma;
 
-import cuchaz.enigma.api.service.EnigmaServiceContext;
+import cuchaz.enigma.EnigmaServices;
 import cuchaz.enigma.api.service.ObfuscationTestService;
 import cuchaz.enigma.translation.representation.entry.ClassEntry;
 import cuchaz.enigma.translation.representation.entry.Entry;
@@ -26,12 +26,11 @@ import cuchaz.enigma.translation.representation.entry.MethodEntry;
 public class StitchIntermediaryObfuscationTestService implements ObfuscationTestService {
 	private final String prefix, classPrefix, classPackagePrefix, fieldPrefix, methodPrefix;
 
-	public StitchIntermediaryObfuscationTestService(EnigmaServiceContext<ObfuscationTestService> context) {
-		this.prefix = context.getArgument("package").orElse("net/minecraft") + "/";
-		this.classPrefix = context.getArgument("classPrefix").orElse("class_");
-		this.fieldPrefix = context.getArgument("fieldPrefix").orElse("field_");
-		this.methodPrefix = context.getArgument("methodPrefix").orElse("method_");
-
+	public StitchIntermediaryObfuscationTestService() {
+		this.prefix = "net/minecraft" + "/";
+		this.classPrefix = "class_";
+		this.fieldPrefix = "field_";
+		this.methodPrefix = "method_";
 		this.classPackagePrefix = this.prefix + this.classPrefix;
 	}
 

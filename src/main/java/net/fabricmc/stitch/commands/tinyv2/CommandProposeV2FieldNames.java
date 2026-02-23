@@ -23,14 +23,12 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import javax.annotation.Nullable;
-
 import com.google.common.collect.Lists;
 
 import net.fabricmc.mappings.EntryTriple;
 import net.fabricmc.stitch.Command;
 import net.fabricmc.stitch.util.FieldNameFinder;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Java stores the names of enums in the bytecode, and obfuscation doesn't get rid of it. We can use this for easy mappings.
